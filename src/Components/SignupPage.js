@@ -8,10 +8,30 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const handleSignup = (e) => {
-    e.preventDefault();
+
     
-    navigate("/login"); // Redirect to login after signup
+const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost/MediMeet/php/signup.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        alert("Signup successful!");
+        navigate("/login");
+      } else {
+        alert(data.message || "Signup failed. Try again.");
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      alert("Something went wrong. Please try again later.");
+    }
   };
 
   return (

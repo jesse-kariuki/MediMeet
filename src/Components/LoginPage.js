@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -7,12 +6,37 @@ function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Add login validation logic here
-    navigate("/home"); // Redirect to home after login
-  };
+ const handleLogin = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost/MediMeet/php/login.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      alert("Login successful!");
+      navigate("/home");
+    } else {
+      setError(data.message || "Invalid login.");
+    }
+  } catch (err) {
+    setError("Network error. Try again later.");
+    console.error("Login error:", err);
+  }
+};
+
 
   return (
     <div className="auth-container">
@@ -20,6 +44,8 @@ function LoginPage() {
       <p className="auth-subtext">
         Welcome back! Not a member? <a href="/signup">Sign up</a>
       </p>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
       <form onSubmit={handleLogin} className="auth-form">
         <label>Email Address</label>
         <input
@@ -46,4 +72,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-

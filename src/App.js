@@ -16,6 +16,7 @@ function App() {
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/" element={<HomePage />} /> {/* Optional: default route */}
     </Routes>
   );
 }
