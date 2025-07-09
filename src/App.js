@@ -9,12 +9,13 @@ import Cardiology from "./Components/Cardiology";
 import Eye from "./Components/Eye";
 import Bones from "./Components/Bones";
 import "./App.css"; 
-
+import SignupPage from "./Components/SignupPage";
+import LoginPage from "./Components/LoginPage";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/contactus" element={<ContactPage />} />
@@ -23,6 +24,9 @@ function App() {
       <Route path="/cardiology" element={<Cardiology/>}/>
       <Route path="/eye" element={<Eye />} />
       <Route path="/bones" element={<Bones />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/" element={<HomePage />} /> {/* Optional: default route */}
     </Routes>
   );
 }
