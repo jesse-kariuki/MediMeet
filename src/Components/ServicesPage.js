@@ -1,44 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import "./services.css";
 
 const ServicesPage = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    service: "",
-    time: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleBookingSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("http://localhost/MediMeet/php/bookings.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-      if (result.status === "success") {
-        alert("Booking successful!");
-        setFormData({ name: "", email: "", service: "", time: "" });
-      } else {
-        alert(result.message || "Booking failed.");
-      }
-    } catch (error) {
-      console.error("Booking error:", error);
-      alert("Something went wrong.");
-    }
-  };
-
   return (
     <>
       <nav className="nav-bar">
@@ -64,30 +29,11 @@ const ServicesPage = () => {
               <h1>Your Health, <br /> Our Mission</h1>
               <p>Providing quality, personalized care to every patient, every time.</p>
             </div>
-            <form className="appointment-form" onSubmit={handleBookingSubmit}>
+            <form className="appointment-form">
               <h3 className="appointment-h3">General Appointment</h3>
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name *"
-                required
-                value={formData.name}
-                onChange={handleChange}
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email address *"
-                required
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <select
-                name="service"
-                required
-                value={formData.service}
-                onChange={handleChange}
-              >
+              <input type="text" placeholder="Full Name *" required />
+              <input type="email" placeholder="Email address *" required />
+              <select required>
                 <option value="">Please Select</option>
                 <option>General Consultation</option>
                 <option>Cardiology</option>
@@ -98,14 +44,8 @@ const ServicesPage = () => {
                 <option>Physiotherapy</option>
                 <option>Orthopedic</option>
               </select>
-              <select
-                name="time"
-                required
-                value={formData.time}
-                onChange={handleChange}
-              >
-                <option value="">Select Time</option>
-                <option>8:00AM</option>
+              <select required>
+                <option value="">8:00AM</option>
                 <option>10:00AM</option>
                 <option>2:00PM</option>
                 <option>4:00PM</option>

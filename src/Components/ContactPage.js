@@ -6,45 +6,82 @@ import "./home.css";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  topic: "",
-  message: ""
-});
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    topic: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({
+    success: null,
+    message: ""
+  });
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData({ ...formData, [name]: value });
-};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus({ success: null, message: "" });
 
-  console.log("Submitting form data:", formData); // ✅ Log before sending
+    try {
+      const formDataObj = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataObj.append(key, value);
+      });
 
-  try {
-    const res = await fetch("http://localhost/MediMeet/php/feedback.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+      const res = await fetch("http://localhost/MediMeet/php/feedback.php", {
+        method: "POST",
+        body: formDataObj,
+      });
 
-    const result = await res.json();
-    console.log("Response:", result); // ✅ Log response from server
+      const result = await res.json();
+      
+      if (result.status === "success") {
+        // Topic-specific response messages
+        const topicResponses = {
+          "General Inquiry": "Thank you for your inquiry! We'll respond within 24 hours.",
+          "Support": "Support request received! Our team will contact you shortly.",
+          "Feedback": "Thank you for your valuable feedback! We appreciate your input.",
+          "Appointment": "Appointment request received! We'll confirm your booking soon.",
+          "": "Thank you for contacting us!" // Default fallback
+        };
 
-    if (result.status === "success") {
-      alert("Feedback submitted!");
-    } else {
-      alert(result.message || "Submission failed");
+        setSubmitStatus({ 
+          success: true, 
+          message: topicResponses[formData.topic] || topicResponses[""]
+        });
+
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          topic: "",
+          message: ""
+        });
+      } else {
+        setSubmitStatus({ 
+          success: false, 
+          message: result.message || "Submission failed. Please try again." 
+        });
+      }
+    } catch (err) {
+      console.error("Feedback error:", err);
+      setSubmitStatus({ 
+        success: false, 
+        message: "Network error. Please check your connection." 
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (err) {
-    console.error("Error:", err); // ✅ See what went wrong
-    alert("Something went wrong.");
-  }
-};
-
+  };
 
   return (
     <>
@@ -80,91 +117,112 @@ const handleSubmit = async (e) => {
 
         <div className="contact-container">
           <h2>Contact Us</h2>
-          <p className="description">We’d love to hear from you. Fill out the form and we’ll be in touch soon.</p>
+          <p className="description">
+            We'd love to hear from you. Fill out the form and we'll be in touch soon.
+          </p>
 
-         <form className="contact-form" onSubmit={handleSubmit}>
-  <div className="form-row">
-    <div className="form-group">
-      <label>First name</label>
-      <input
-        type="text"
-        name="firstName"
-        value={formData.firstName}
-        onChange={handleChange}
-        placeholder="Enter your first name"
-        required
-      />
-    </div>
-    <div className="form-group">
-      <label>Last name</label>
-      <input
-        type="text"
-        name="lastName"
-        value={formData.lastName}
-        onChange={handleChange}
-        placeholder="Enter your last name"
-        required
-      />
-    </div>
-  </div>
+          {/* Status Message - Now shows topic-specific responses */}
+          {submitStatus.message && (
+            <div className={`alert ${submitStatus.success ? "alert-success" : "alert-error"}`}>
+              {submitStatus.message}
+            </div>
+          )}
 
-  <div className="form-row">
-    <div className="form-group">
-      <label>Email</label>
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Enter your email"
-        required
-      />
-    </div>
-    <div className="form-group">
-      <label>Phone number</label>
-      <input
-        type="tel"
-        name="phone"
-        value={formData.phone}
-        onChange={handleChange}
-        placeholder="Enter your phone number"
-      />
-    </div>
-  </div>
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="form-row">
+              <div className="form-group">
+                <label>First name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder="Enter your first name"
+                  required
+                  minLength="2"
+                />
+              </div>
+              <div className="form-group">
+                <label>Last name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder="Enter your last name"
+                  required
+                  minLength="2"
+                />
+              </div>
+            </div>
 
-  <div className="form-group">
-    <label>Choose a topic</label>
-    <select
-      name="topic"
-      value={formData.topic}
-      onChange={handleChange}
-      required
-    >
-      <option value="">Select one...</option>
-      <option>General Inquiry</option>
-      <option>Support</option>
-      <option>Feedback</option>
-    </select>
-  </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  required
+                  pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                />
+              </div>
+              <div className="form-group">
+                <label>Phone number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Enter your phone number"
+                  pattern="[0-9]{10,15}"
+                />
+              </div>
+            </div>
 
-  <div className="form-group">
-    <label>Message</label>
-    <textarea
-      name="message"
-      value={formData.message}
-      onChange={handleChange}
-      placeholder="Type your message..."
-      required
-    ></textarea>
-  </div>
+            <div className="form-group">
+              <label>Choose a topic</label>
+              <select
+                name="topic"
+                value={formData.topic}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select one...</option>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Support">Support</option>
+                <option value="Feedback">Feedback</option>
+                <option value="Appointment">Appointment</option>
+              </select>
+            </div>
 
-  <div className="checkbox-group">
-    <input type="checkbox" id="terms" required />
-    <label htmlFor="terms">I accept the terms</label>
-  </div>
+            <div className="form-group">
+              <label>Message</label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Type your message..."
+                required
+                minLength="10"
+              ></textarea>
+            </div>
 
-  <button type="submit" className="submit-btn">Submit</button>
-</form>
+            <div className="checkbox-group">
+              <input type="checkbox" id="terms" required />
+              <label htmlFor="terms">I accept the terms</label>
+            </div>
+
+            <button 
+              type="submit" 
+              className="submit-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </button>
+          </form>
 
           <div className="divider"></div>
 
