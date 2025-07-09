@@ -21,7 +21,7 @@ const BlogsPage = () => {
         </div>
       </nav>
 
-      <h1 style={{ textAlign: "center", margin: "40px 0", color: "#007e85" }}>
+      <h1 className="blogs-h1" style={{ textAlign: "center", margin: "40px 0", color: "#007e85" }}>
         Medical Blog Posts
       </h1>
 
