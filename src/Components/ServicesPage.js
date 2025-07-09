@@ -75,13 +75,13 @@ const ServicesPage = () => {
       <div className="services-container">
         {[
           {
-            img: "Container.png",
+            img: "Teeth.png",
             title: "Dental treatment",
             desc: "Comprehensive oral healthcare including preventive cleanings, restorative procedures, cosmetic dentistry, and advanced implant solutions.",
             link: "/dental"
           },
           {
-            img: "boneTreatment.png",
+            img: "Bone.png",
             title: "Bones Treatment",
             desc: "Specialized orthopedic care for bone, joint, and musculoskeletal conditions.",
             link: "/bones"
@@ -93,7 +93,7 @@ const ServicesPage = () => {
             link: "/diagnosis"
           },
           {
-            img: "EyeCare.png",
+            img: "Eye.png",
             title: "Eye Care",
             desc: "Expert ophthalmologists offering advanced diagnostics and treatments.",
             link: "/eye"

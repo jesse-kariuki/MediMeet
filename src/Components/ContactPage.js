@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-import "./contacts.css"; // Assuming you have a CSS file for styling
-
+import "./contacts.css";
+import "./home.css";
 
 const ContactPage = () => {
   return (
@@ -28,9 +28,17 @@ const ContactPage = () => {
       </header>
 
       <div className="main-container">
-        <div className="contact-image">
-          <img src="/hospital.png" alt="Hospital" />
-        </div>
+      <section className="hero-section">
+  <div className="hero-overlay">
+    <div className="hero-content">
+      <div className="hero-text">
+        <h1>Your Health, <br /> Our Mission</h1>
+        <p>Providing quality, personalized care to every patient, every time.</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
 
         <div className="contact-container">
           <h2>Contact Us</h2>

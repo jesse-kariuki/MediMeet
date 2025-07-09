@@ -81,12 +81,49 @@ main{
 }
 
 .legend{
-  background-image: url("");
+  
 }
 
 .legend p{
     flex:1;
 }
+.hero-section {
+    background: url('/public/Images/Rectangle1548.png') center/cover no-repeat;
+    height: 100vh;
+    position: relative;
+    color: white;
+  }
+  
+  .hero-overlay {
+    background: rgba(0, 0, 0, 0.5); 
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hero-content {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+    padding: 40px;
+  }
+  
+  .hero-text {
+    max-width: 50%;
+  }
+  
+  .hero-text h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-text p {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
 .doctor-search {
     background-color: #ffffff;
     border-radius:8px;
@@ -281,7 +318,9 @@ main{
     justify-content: center;
     flex-wrap: wrap;
     gap: 32px;
-    padding: 40px 0;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   .services-container a{
     text-decoration: none;
@@ -297,12 +336,20 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 400px;
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
   }
 
   .service-card img{
     width: 290px;
     height: 220px;
     border-radius: 24px;
+    object-fit: cover;
     
   }
   .service-name{
@@ -314,6 +361,7 @@ main{
   }
   .text-with-arrow{
     color:#007E85;
+    margin-top: auto;
 
   }
   .text-with-arrow:hover {
@@ -362,11 +410,11 @@ main{
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   max-width: 1200px;
-  margin: auto;
-  margin-right: 170px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .service-card {
@@ -380,13 +428,15 @@ main{
   align-items: stretch;
   height: 100%;
   transition: 0.3s ease;
+  min-height: 350px;
 }
 
 .service-card img {
-  width: 270px;
+  width: 100%;
   height: 220px;
   margin-bottom: 10px;
   object-fit: cover;
+  border-radius: 8px;
 }
 
 .service-card h3 {
@@ -399,6 +449,7 @@ main{
   font-size: 0.90rem;
   color: #555555;
   line-height: 1.4;
+  flex-grow: 1;
 }
 
 .service-card:hover {
@@ -416,6 +467,8 @@ main{
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .testimonial-card {
@@ -426,6 +479,9 @@ main{
   border-radius: 8px;
   text-align: left;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
 }
 
 .testimonial-card .stars {
@@ -438,6 +494,7 @@ main{
   font-size: 14px;
   color: #555;
   margin-bottom: 15px;
+  flex-grow: 1;
 }
 
 .testimonial-card .avatar {
@@ -446,6 +503,7 @@ main{
   border-radius: 50%;
   object-fit: cover;
   display: block;
+  margin-top: auto;
 }
   .team{
     display: flex;
@@ -464,7 +522,9 @@ main{
     justify-content: center;
     flex-wrap: wrap;
     gap: 32px;
-    padding: 40px 0;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
   .employee-card {
@@ -477,6 +537,13 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 450px;
+    transition: transform 0.3s ease;
+  }
+
+  .employee-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
   }
   
   .employee-card img {
@@ -511,12 +578,14 @@ main{
     line-height: 24px;
     text-align: center;
     margin-bottom: 20px;
+    flex-grow: 1;
   }
   
   .socials-row {
     display: flex;
     justify-content: center;
     gap: 12px;
+    margin-top: auto;
   }
   
   .socials-container {
@@ -537,6 +606,9 @@ main{
     gap: 28px;
     justify-content: center;
     flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
 
   .testimonial-card {
@@ -549,6 +621,13 @@ main{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    min-height: 400px;
+    transition: transform 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
   }
 
   .profile-pic {
@@ -556,6 +635,7 @@ main{
     height: 80px;
     border-radius: 9999px;
     margin-bottom: 32px;
+    object-fit: cover;
   }
 
   .testimonial-title {
@@ -572,6 +652,7 @@ main{
     font-weight: 400;
     line-height: 30px;
     margin-bottom: 32px;
+    flex-grow: 1;
   }
 
   .testimonial-name {
@@ -580,6 +661,7 @@ main{
     font-weight: 700;
     line-height: 18px;
     margin-bottom: 4px;
+    margin-top: auto;
   }
 
   .testimonial-role {
@@ -595,7 +677,9 @@ main{
     align-items: center;
     flex-wrap: wrap;
     gap: 32px;
-    padding: 40px 0;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   .footer {
     background-color: #007e85;
@@ -697,6 +781,50 @@ main{
     line-height: 1.5;
   }
   
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .services-container,
+    .team-cards,
+    .testimonial-container {
+      padding: 40px 10px;
+    }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+      padding: 0 10px;
+    }
+    
+    .service-card,
+    .employee-card,
+    .testimonial-card {
+      width: 100%;
+      max-width: 350px;
+    }
+    
+    .testimonial-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .testimonial-card {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .service-card,
+    .employee-card,
+    .testimonial-card {
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .service-card img {
+      width: 100%;
+      height: 200px;
+    }
+  }
  
   @media(max-width: 767px) {
     .footer-col {

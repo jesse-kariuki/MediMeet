@@ -80,7 +80,7 @@
   
  
   .hero-section {
-    background: url('') center/cover no-repeat;
+    background: url('/public/Images/Rectangle1548.png') center/cover no-repeat;
     height: 100vh;
     position: relative;
     color: white;
@@ -236,8 +236,8 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 32px;
-    padding: 40px 0;
-    max-width: 1000px;
+    padding: 40px 20px;
+    max-width: 1200px;
     margin: 0 auto;
   }
   
@@ -246,7 +246,9 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 32px;
-    padding: 40px 0px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
   .service-card {
@@ -260,6 +262,8 @@
     flex-direction: column;
     align-items: center;
     transition: transform 0.3s ease;
+    height: auto;
+    min-height: 400px;
   }
   
   .service-card:hover {
@@ -271,6 +275,7 @@
     width: 290px;
     height: 220px;
     border-radius: 24px;
+    object-fit: cover;
   }
   
   .service-card a {
@@ -291,12 +296,14 @@
     line-height: 24px;
     text-align: center;
     margin-bottom: 20px;
+    flex-grow: 1;
   }
   
   .socials-row {
     display: flex;
     justify-content: center;
     gap: 12px;
+    margin-top: auto;
   }
   
   .text-with-arrow {
@@ -339,14 +346,12 @@
   
   .faq-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-     max-width: 1200px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
   }
-  
-  
   
   .faq-card {
     background-color: #f9f9f9;
@@ -481,4 +486,33 @@
   
   .social-links a:hover {
     opacity: 0.8;
+  }
+
+  /* Responsive Design for Better Card Alignment */
+  @media (max-width: 768px) {
+    .services-container,
+    .team-cards {
+      padding: 40px 10px;
+    }
+    
+    .faq-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .service-card {
+      width: 100%;
+      max-width: 350px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .service-card {
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .service-card img {
+      width: 100%;
+      height: 200px;
+    }
   }
