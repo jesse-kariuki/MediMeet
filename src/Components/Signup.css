@@ -1,0 +1,21 @@
+@import "./Login.css"; 
+
+.auth-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #333;
+}
+
+.auth-checkbox input {
+  margin-top: 5px;
+}
+
+.auth-terms {
+  font-size: 12px;
+  text-align: center;
+  color: #888;
+  margin-top: 20px;
+}

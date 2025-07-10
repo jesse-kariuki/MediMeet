@@ -15,8 +15,8 @@ const Header = () =>(
     <Link to="/blogs">Blogs</Link>
     </div>
     <div className="auth">
-      <a href="signup.html" className="signup">Sign Up</a>
-      <a href="login.html" className="login">Login</a>
+      <Link to="/signup" className="signup">Sign Up</Link>
+      <Link to="/login" className="login">Login</Link>
     </div>
   </nav>
 );

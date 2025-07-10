@@ -61,8 +61,6 @@ const ServicesPage = () => {
         <div className="search-bar">
           <input type="text" placeholder="Name" />
           <input type="text" placeholder="Speciality" />
-          <label className="switch">
-          </label>
           <button className="btn btn-primary">Search</button>
         </div>
       </section>
