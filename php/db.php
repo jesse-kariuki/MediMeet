@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $username = "root";
-$password = 'Passwords$uck0';
+$password = '';
 $database = "MediMeet";
 
 
