@@ -29,7 +29,7 @@ function App() {
       <Route path="/blogs/:id" element={<BlogFacts/>} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/" element={<HomePage />} /> {/* Optional: default route */}
+      <Route path="/" element={<HomePage />} /> 
     </Routes>
   );
 }
