@@ -1,33 +1,55 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+header('Content-Type: application/json');
+// Database connection
+$host = "localhost";
+$username = "root";
+$password = "";
+$database = "medimeet"; 
 
-require 'db.php';
-header("Content-Type: application/json");
+$conn = mysqli_connect($host, $username, $password, $database);
 
-$data = json_decode(file_get_contents("php://input"), true);
-
-// Validate required fields
-if (
-    !isset($data['firstName'], $data['lastName'], $data['email'], $data['phone'], $data['topic'], $data['message'])
-) {
-    echo json_encode(["status" => "error", "message" => "Missing required fields."]);
+if (!$conn) {
+    echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
     exit;
 }
 
-$firstName = mysqli_real_escape_string($conn, $data['firstName']);
-$lastName  = mysqli_real_escape_string($conn, $data['lastName']);
-$email     = mysqli_real_escape_string($conn, $data['email']);
-$phone     = mysqli_real_escape_string($conn, $data['phone']);
-$topic     = mysqli_real_escape_string($conn, $data['topic']);
-$message   = mysqli_real_escape_string($conn, $data['message']);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Validate required fields
+    $required = ['firstName', 'lastName', 'email', 'topic', 'message'];
+    foreach ($required as $field) {
+        if (empty($_POST[$field])) {
+            echo json_encode(['status' => 'error', 'message' => "$field is required"]);
+            exit;
+        }
+    }
+    // Validate topic is from allowed options
+    $allowedTopics = ['General Inquiry', 'Support', 'Feedback', 'Appointment'];
+    if (!in_array($_POST['topic'], $allowedTopics)) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid topic selected']);
+        exit;
+    }
 
-$sql = "INSERT INTO feedback (first_name, last_name, email, phone, topic, message)
-        VALUES ('$firstName', '$lastName', '$email', '$phone', '$topic', '$message')";
+    // Sanitize inputs
+    $first_name = mysqli_real_escape_string($conn, $_POST['firstName']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['lastName']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $phone = !empty($_POST['phone']) ? mysqli_real_escape_string($conn, $_POST['phone']) : null;
+    $topic = mysqli_real_escape_string($conn, $_POST['topic']);
+    $message = mysqli_real_escape_string($conn, $_POST['message']);
 
-if (mysqli_query($conn, $sql)) {
-    echo json_encode(["status" => "success", "message" => "Feedback submitted"]);
+    // Insert into database
+    $stmt = $conn->prepare("INSERT INTO feedback (first_name, last_name, email, phone, topic, message) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $first_name, $last_name, $email, $phone, $topic, $message);
+
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $conn->error]);
+    }
+
+    $stmt->close();
+    mysqli_close($conn);
 } else {
-    echo json_encode(["status" => "error", "message" => "Submission failed"]);
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
 }
 ?>
