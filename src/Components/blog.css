@@ -215,3 +215,45 @@ body {
   .social-links a:hover {
       opacity: 0.8;
   }
+  .blog-facts-page {
+  background-color: #ECECEC;
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.back-btn {
+  background-color: white;
+  color: #007e85;
+  border: 2px solid #007e85;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.back-btn:hover {
+  background-color: #007e85;
+  color: white;
+}
+
+.facts-title {
+  color: #007e85;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.facts-list {
+  list-style: none;
+  padding: 0;
+}
+
+.fact-item {
+  background-color: white;
+  color: #333;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}

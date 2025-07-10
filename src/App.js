@@ -4,6 +4,7 @@ import HomePage from "./Components/HomePage";
 import ContactPage from "./Components/ContactPage";
 import ServicesPage from "./Components/ServicesPage";
 import Blogs from "./Components/Blogs";
+import BlogFacts from "./Components/BlogFacts";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/contactus" element={<ContactPage />} />
       <Route path="/blogs" element={<Blogs />} />
+      <Route path="/blogs/:id" element={<BlogFacts/>} />
     </Routes>
   );
 }
