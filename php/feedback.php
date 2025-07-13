@@ -1,5 +1,8 @@
 <?php
+// Contact form processing script
+
 header('Content-Type: application/json');
+
 // Database connection
 $host = "localhost";
 $username = "root";
@@ -22,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             exit;
         }
     }
+
     // Validate topic is from allowed options
     $allowedTopics = ['General Inquiry', 'Support', 'Feedback', 'Appointment'];
     if (!in_array($_POST['topic'], $allowedTopics)) {
@@ -29,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    // Sanitize inputs
+    // Sanitize inputs before inserting into database
     $first_name = mysqli_real_escape_string($conn, $_POST['firstName']);
     $last_name = mysqli_real_escape_string($conn, $_POST['lastName']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
